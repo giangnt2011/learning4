@@ -8,6 +8,13 @@ public class PlayerController : TankController
     Vector2 mousePoint;
     Vector3 mousePointWorld;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        expController.SetLevel(1);
+        Observer.Instance.AddObserver(GameKey.ENEMY_DIE, OnEnemyDie);
+
+    }
     public override void TankDestroy()
     {
         Debug.Log("You lose");
@@ -28,6 +35,11 @@ public class PlayerController : TankController
         {
             Shoot();
         }
+    }
+    void OnEnemyDie(object data)
+    {
+        EnemyController enemy= (EnemyController)data;
+        expController.CollectEXP(enemy.Level*20);
     }
 }
 

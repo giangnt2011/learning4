@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletController : MovementController
 {
     int count = 0;
+    public float damage;
     // Update is called once per frame
     void Update()
     {
@@ -16,7 +17,7 @@ public class BulletController : MovementController
         }
         //transform.position += transform.up * 5f * Time.deltaTime;
 
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, transform.up, 1f);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, transform.up, 0.2f);
         if(hit.transform != null )
         {
             Debug.Log(hit);
@@ -24,7 +25,7 @@ public class BulletController : MovementController
             if(ihit != null )
             {
                 Creator.Instance.CreateExplosion(transform.position);
-                ihit.OnHit();
+                ihit.OnHit(damage);
                 Destroy(gameObject);
             }
         }

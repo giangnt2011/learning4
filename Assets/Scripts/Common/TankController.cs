@@ -16,12 +16,17 @@ public abstract class TankController : MovementController, IHit
     [SerializeField] protected Transform gun;
     [SerializeField] Transform tranShoot;
     [SerializeField] HPController hpController;
+    [SerializeField] protected ExpController expController;
+    [SerializeField] TankInfo[] tankInfos;
     TankInfo tankInfo;
-
-    private void Awake()
+    public int Level
     {
-        hpController.SetHP(tankInfo.HP);
+        get { return expController.Level; }
+    }
+    protected virtual void Awake()
+    {
         hpController.die = TankDestroy;
+        expController.upLevel = OnUpLevel;
     }
 
     public abstract void TankDestroy();
@@ -37,11 +42,19 @@ public abstract class TankController : MovementController, IHit
     }
     protected void Shoot()
     {
-        Creator.Instance.CreateBullet(tranShoot);
+        BulletController bullet = Creator.Instance.CreateBullet(tranShoot);
+        bullet.damage = tankInfo.damage;
     }
 
     public void OnHit(float damage)
     {
         hpController.TakeDamage(damage);
+    }
+    void OnUpLevel(int level)
+    {
+        if(level > tankInfos.Length){ return; }
+        tankInfo = tankInfos[level-1];
+        hpController.SetHP(tankInfo.HP);
+        speed = tankInfo.Speed;
     }
 }
