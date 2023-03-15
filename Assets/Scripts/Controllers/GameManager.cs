@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameKey
 {
     public const string ENEMY_DIE = "EnemyDie";
+    public const string ALL_ENEMY_DIED = "AllEnemyDied";
 }
 public class GameManager : MonoBehaviour
 {

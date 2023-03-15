@@ -26,8 +26,7 @@ public class ProcessingController : MonoBehaviour
     }
     public void DisplayProcessing()
     {
-        Debug.Log(maxValue);
         if (maxValue == 0) return;
-        transform.localScale = new Vector3((float)transform.localScale.x * currentValue / maxValue, transform.localScale.y, 1);
+        transform.localScale = new Vector3((float)0.5 * currentValue / maxValue, transform.localScale.y, 1);
     }
 }

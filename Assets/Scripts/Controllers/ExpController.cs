@@ -11,25 +11,26 @@ public class ExpController : ProcessingController
     int level;
     public int Level {
         get { return level; }
-        set { level = value; txtLevel.text = "Lv." + level; }
+        set { Level = value; txtLevel.text = "Lv." + Level; }
     }
     public void CollectEXP(float exp)
     {
         ChangeValue(currentValue + exp);
         if (currentValue == maxValue) 
         {
-            SetLevel(level+1);
+            SetLevel(Level+1);
+            txtLevel.text = "Lv." + Level;
         }
     }
 
     public void SetLevel(int level)
     {
-        Debug.Log(currentValue+ " " + level);
         ChangeValue(0);
         this.level = level;
         if(upLevel != null)
         {
             upLevel(level);
         }
+        txtLevel.text = "Lv." + Level;
     }
 }

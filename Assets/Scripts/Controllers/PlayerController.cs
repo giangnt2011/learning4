@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerController : TankController
 {
+    public static PlayerController Instance;
     float v;
     float h;
     Vector2 mousePoint;
@@ -11,6 +12,7 @@ public class PlayerController : TankController
     protected override void Awake()
     {
         base.Awake();
+        Instance = this;
         expController.SetLevel(1);
         Observer.Instance.AddObserver(GameKey.ENEMY_DIE, OnEnemyDie);
 
@@ -39,7 +41,7 @@ public class PlayerController : TankController
     void OnEnemyDie(object data)
     {
         EnemyController enemy= (EnemyController)data;
-        expController.CollectEXP(enemy.Level*20);
+        expController.CollectEXP(enemy.Level*10);
     }
 }
 

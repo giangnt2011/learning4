@@ -20,7 +20,6 @@ public class BulletController : MovementController
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position, transform.up, 0.2f);
         if(hit.transform != null )
         {
-            Debug.Log(hit);
             IHit ihit = hit.transform.GetComponent<IHit>();
             if(ihit != null )
             {
